@@ -1,0 +1,41 @@
+<%-include('../includes/nav.ejs')%>
+
+<main>
+  <form action="/signup" method="POST">
+    <%if(errorMassage){%>
+    <div class="error-message"><%=errorMassage%></div>
+    <%}%>
+    <div>
+      <label class="lb" for="email">email</label>
+      <input
+        class="<%= validError === 'email'  ? 'invalid' : '' %>"
+        type="text"
+        name="email"
+        id="email"
+        value="<%=oldemail%>"
+      />
+    </div>
+    <div>
+      <label class="lb" for="Password">Password</label>
+      <input
+        class="<%= validError === 'password' ? 'invalid' : '' %>"
+        type="password"
+        name="password"
+        id="Password"
+      />
+    </div>
+    <div>
+      <label class="lb" for="confirmpassword">confirm Password</label>
+      <input
+        class="<%= validError === 'confirmpassword'? 'invalid' : '' %>"
+        type="password"
+        name="confirmpassword"
+        id="confirmpassword"
+      />
+    </div>
+    <input type="hidden" name="_csrf" value="<%=csrfToken%>" />
+
+    <button type="submit">sign up</button>
+  </form>
+</main>
+<%-include('../includes/end.ejs')%>

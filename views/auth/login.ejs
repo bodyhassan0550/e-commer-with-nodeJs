@@ -1,0 +1,35 @@
+<%-include('../includes/nav.ejs')%>
+
+<main>
+  <form action="/login" method="POST">
+    <% if (errorMassage) { %>
+    <div class="error-message"><%= errorMassage %></div>
+    <% } %>
+    <div>
+      <label class="lb" for="email">email</label>
+      <input
+        class="<%= validError === 'email' ? 'invalid' : '' %>"
+        type="text"
+        name="email"
+        id="email"
+        value="<%=oldemail%>"
+      />
+    </div>
+    <div>
+      <label class="lb" for="Password">Password</label>
+      <input
+        class="<%= validError === 'password' ? 'invalid' : '' %>"
+        type="Password"
+        name="password"
+        id="Password"
+      />
+    </div>
+    <input type="hidden" name="_csrf" value="<%=csrfToken%>" />
+
+    <button type="submit">login</button>
+  </form>
+  <div>
+    <a href="/reset-password">Forget My Password</a>
+  </div>
+</main>
+<%-include('../includes/end.ejs')%>

@@ -1,0 +1,56 @@
+<%-include('../includes/nav.ejs')%>
+<style>
+  main {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+  .card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 300px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    text-align: center;
+  }
+  .card:hover {
+    transform: scale(1.05);
+  }
+  .card header {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  .card img {
+    max-width: 100%;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+  }
+  .card p {
+    margin: 10px 0;
+  }
+  .card .price {
+    font-size: 1.2em;
+    color: #007BFF;
+  }
+</style>
+<main>
+<dev class="card">
+    <header><%=prod.title%></header>
+    <img src="/<%=prod.imgurl%>" alt="">
+    <p><%=prod.price%></p>
+    <p><%=prod.description%></p>
+     <%if(isloggedin) {%>
+    <form action="/cart" method="POST">
+      <button type="submit">Add to cart</button>
+            <input type="hidden" name="_csrf" value="<%=csrfToken%>" />
+
+      <input hidden name="productId" value=<%=prod._id%> />
+    </form>
+    <%}%>
+    
+</dev>
+
+</main>
+
+ <%-include('../includes/end.ejs')%>

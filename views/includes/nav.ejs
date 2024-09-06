@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/main.css" />
+
+    <title><%= title %></title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+        
+          <li>
+            <a class="<%= path === '/' ? 'active' : '' %>" href="/">Shop</a>
+          </li>
+           <li>
+            <a
+              class="<%= path === '/products' ? 'active' : '' %>"
+              href="/products"
+              >Products</a
+            >
+          </li>
+          <% if (isloggedin) { %>
+           <li>
+            <a class="<%= path === '/cart' ? 'active' : '' %>" href="/cart"
+              >Cart</a
+            >
+          </li>
+          <li>
+            <a class="<%= path === '/order' ? 'active' : '' %>" href="/order"
+              >Order</a
+            >
+          </li>
+          <li>
+            <a
+              class="<%= path === '/admin/products' ? 'active' : '' %>"
+              href="/admin/products"
+              >Admin Products</a
+            >
+          </li>
+          <li>
+            <a
+              class="<%= path === '/admin/add-product' ? 'active' : '' %>"
+              href="/admin/add-product"
+              >Add Product</a
+            >
+          </li>
+          <% } %>
+        </ul>
+        <ul>
+          <% if (!isloggedin) { %>
+          <li>
+            <a class="<%= path === '/login' ? 'active' : '' %>" href="/login"
+              >Login</a
+            >
+          </li>
+          <li>
+            <a class="<%= path === '/signup' ? 'active' : '' %>" href="/signup"
+              >signup</a
+            >
+          </li>
+          <% } else { %>
+          <li>
+            <form action="/logout" method="POST">
+              <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+              <button type="submit">Logout</button>
+            </form>
+          </li>
+          <% } %>
+        </ul>
+      </nav>
+    </header>
+  </body>
+</html>

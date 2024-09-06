@@ -1,0 +1,32 @@
+<%-include('../includes/nav.ejs')%>
+
+<main class="prod">
+  <% if (prod.length > 0) { %>
+  <h1>My Products</h1>
+  <% for (let p of prod) { %>
+  <div class="card">
+    <img src="<%= p.productId.imgurl %>" alt="<%= p.productId.title %>" />
+    <h2><%= p.title %></h2>
+    <p><%= p.quantity %></p>
+    <p class="price">$<%= p.productId.price %></p>
+    <p><%= p.productId.description %></p>
+    <form action="/remove-cart" , method="POST">
+      <input type="hidden" name="id" value="<%=p.productId._id%>">
+      <input type="hidden" name="_csrf" value="<%=csrfToken%>" />
+
+      <button>Delete</button>
+    </form>
+  </div>
+  <% } %>
+  <form action="/creat-order" method="POST">
+    <input type="hidden" name="_csrf" value="<%=csrfToken%>" />
+
+    <button type="submit">Order Now!</button>
+  </form>
+  <!-- <a href="/checkout">Order Now</a> -->
+  <% } else { %>
+  <p class="no-products">No products!</p>
+  <% } %>
+</main>
+
+<%-include('../includes/end.ejs')%>

@@ -1,0 +1,36 @@
+<%- include('../includes/nav.ejs') %>
+
+<main class="prod">
+  <% if (prod.length > 0) { %>
+  <h1>My Products</h1>
+  <% for (let product of prod) { %>
+  <div class="card">
+    <img src="<%= product.imgurl %>" alt="<%= product.title %>" />
+    <h2><%= product.title %></h2>
+    <p class="price">$<%= product.price %></p>
+    <p><%= product.description %></p>
+    <button><a href="/products/<%=product._id%>">details</a></button>
+    <%if(isloggedin) {%>
+    <form action="/cart" method="POST">
+      <input type="hidden" name="_csrf" value="<%=csrfToken%>" />
+
+      <button type="submit">Add to cart</button>
+      <input hidden name="productId" value="<%=product._id%>" />
+    </form>
+    <%}%>
+  </div>
+  <% } %>
+</main>
+<div class="pagination">
+  <% for (let i = 1; i <= lastpage; i++) { %>
+    <% if (i === currentpage) { %>
+      <a href="/?page=<%= i %>" class="active"><%= i %></a>
+    <% } else { %>
+      <a href="/?page=<%= i %>"><%= i %></a>
+    <% } %>
+  <% } %>
+</div>
+
+<% } else { %>
+<p class="no-products">No products!</p>
+<% } %> <%-include('../includes/end.ejs')%>

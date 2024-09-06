@@ -1,0 +1,31 @@
+<%-include('../includes/nav.ejs')%>
+
+<main class="prod">
+  <h1>My Products</h1>
+  <% for (let p of prod) { %>
+  <div class="card">
+    <img src="<%= p.productId.imgurl %>" alt="<%= p.productId.title %>" />
+    <h2><%= p.productId.title %></h2>
+    <p><%= p.quantity %></p>
+  </div>
+  <% } %>
+  <div>total = <%=total%></div>
+  <div>
+    <button type="button" id="orderbtn">Order</button>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+      const stripe = Stripe(
+        "pk_test_51PojA9KbccDyqiztnOyjbQMxse2UaABpQz5vAfPhhAEiSSGkvIvXvy9sMQgGK34CqtQRbQItFFq0zT6O7L0w08Ab00tgQosUzw"
+      );
+
+      var Orederbtn = document.getElementById("orderbtn");
+      orderbtn.addEventListener('click' ,function(){
+          stripe.redirectToCheckout({
+              sessionId : '<%=sessionId%>'
+          })
+      })
+    </script>
+  </div>
+</main>
+
+<%-include('../includes/end.ejs')%>

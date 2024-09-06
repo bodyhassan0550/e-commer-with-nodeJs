@@ -1,0 +1,52 @@
+<%- include('../includes/nav.ejs') %>
+
+<main>
+  <form
+    action="/admin/<% if (editing) { %>edit-product<% } else { %>product<% } %>"
+    method="POST"
+    enctype="multipart/form-data"
+  >
+    <div>
+      <label class="lb" for="title">Title</label>
+      <input
+        class="ip"
+        type="text"
+        name="title"
+        id="title"
+        value="<% if (editing) { %><%= prod.title %><% } %>"
+      />
+    </div>
+    <div>
+      <label class="lb" for="price">Price</label>
+      <input
+        class="ip"
+        type="number"
+        name="price"
+        id="price"
+        step="0.01"
+        value="<% if (editing) { %><%= prod.price %><% } %>"
+      />
+    </div>
+    <div>
+      <label class="lb" for="image">Image</label>
+      <input
+        class="ip"
+        type="file"
+        name="image"
+        id="image"
+      />
+    </div>
+    <div>
+      <label class="lp" for="desc">Description</label>
+      <textarea name="desc" id="desc"><% if (editing) { %><%= prod.description %><% } %></textarea>
+    </div>
+    <% if (editing) { %>
+    <input type="hidden" name="id" value="<%= prod._id %>" />
+    <% } %>
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+
+    <button type="submit"><% if (editing) { %>Update<% } else { %>Add<% } %></button>
+  </form>
+</main>
+
+<%- include('../includes/end.ejs') %>
